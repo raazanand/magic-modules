@@ -1472,6 +1472,7 @@ func TestSuppressHasRootAccessDiff(t *testing.T) {
 	}
 }
 
+{{- if ne $.TargetVersionName "ga" }}
 func TestAccNetappVolume_LargeCapacityConfig(t *testing.T) {
 	context := map[string]interface{}{
 		"network_name":  acctest.BootstrapSharedServiceNetworkingConnection(t, "gcnv-network-config-3", acctest.ServiceNetworkWithParentService("netapp.servicenetworking.goog")),
@@ -1511,6 +1512,7 @@ func TestAccNetappVolume_LargeCapacityConfig(t *testing.T) {
 func testAccNetappVolume_LargeCapacityConfig_basic(context map[string]interface{}) string {
 	return acctest.Nprintf(`
     resource "google_netapp_storage_pool" "default" {
+        provider = google-beta
         name = "tf-test-test-pool%{random_suffix}"
         location = "us-central1-a"
         service_level = "FLEX"
@@ -1520,6 +1522,7 @@ func testAccNetappVolume_LargeCapacityConfig_basic(context map[string]interface{
     }
 
     resource "google_netapp_volume" "test_volume" {
+        provider = google-beta
         location = "us-central1-a"
         name = "tf_test_test_volume%{random_suffix}"
         capacity_gib = "12288"
@@ -1569,3 +1572,4 @@ func testAccNetappVolume_LargeCapacityConfig_updated(context map[string]interfac
     }
     `, context)
 }
+{{- end }}
