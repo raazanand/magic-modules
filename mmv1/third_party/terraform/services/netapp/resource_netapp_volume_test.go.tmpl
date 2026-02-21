@@ -1549,7 +1549,7 @@ func testAccNetappVolume_LargeCapacityConfig_updated(context map[string]interfac
         name = "tf-test-test-pool%{random_suffix}"
         location = "us-central1-a"
         service_level = "FLEX"
-        capacity_gib = "12287"
+        capacity_gib = "12288"
         type = "UNIFIED"
         network = data.google_compute_network.default.id
     }
@@ -1558,7 +1558,7 @@ func testAccNetappVolume_LargeCapacityConfig_updated(context map[string]interfac
         provider = google-beta
         location = "us-central1-a"
         name = "tf_test_test_volume%{random_suffix}"
-        capacity_gib = "12288"
+        capacity_gib = "12287"
         storage_pool = google_netapp_storage_pool.default.name
         protocols = ["NFSV3"]
         share_name = "tf-test-volume-%{random_suffix}"
