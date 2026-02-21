@@ -254,4 +254,5 @@ properties:
       - 'SCALE_TIER_UNSPECIFIED'
       - 'SCALE_TIER_STANDARD'
       - 'SCALE_TIER_ENTERPRISE'
+    immutable: true
     default_from_api: true

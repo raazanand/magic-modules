@@ -810,7 +810,7 @@ resource "google_netapp_storage_pool" "test_pool" {
 }
 
 {{- if ne $.TargetVersionName "ga" }}
-func testAccNetappStoragePool_ScaleTier(t *testing.T) {
+func TestAccNetappStoragePool_ScaleTier(t *testing.T) {
 	context := map[string]interface{}{
 		"network_name":  acctest.BootstrapSharedServiceNetworkingConnection(t, "gcnv-network-config-3", acctest.ServiceNetworkWithParentService("netapp.servicenetworking.goog")),
 		"random_suffix": acctest.RandString(t, 10),
@@ -859,7 +859,7 @@ func testAccNetappStoragePool_ScaleTierStandard(context map[string]interface{}) 
 	return acctest.Nprintf(`
 resource "google_netapp_storage_pool" "test_pool" {
 	provider = google-beta
-    name = "tf-test-pool%{random_suffix}"
+    name = "tf-test-pool-standard-%{random_suffix}"
     location = "us-central1-a"
     service_level = "FLEX"
     type = "UNIFIED"
@@ -884,7 +884,7 @@ func testAccNetappStoragePool_ScaleTierEnterprise(context map[string]interface{}
 	return acctest.Nprintf(`
 resource "google_netapp_storage_pool" "test_pool" {
 	provider = google-beta
-    name = "tf-test-pool%{random_suffix}"
+    name = "tf-test-pool-enterprise-%{random_suffix}"
     location = "us-central1-a"
     service_level = "FLEX"
     type = "UNIFIED"
@@ -909,7 +909,7 @@ func testAccNetappStoragePool_ScaleTierEnterprise_update(context map[string]inte
 	return acctest.Nprintf(`
 resource "google_netapp_storage_pool" "test_pool" {
 	provider = google-beta
-    name = "tf-test-pool%{random_suffix}"
+    name = "tf-test-pool-enterprise-%{random_suffix}"
     location = "us-central1-a"
     service_level = "FLEX"
     type = "UNIFIED"
