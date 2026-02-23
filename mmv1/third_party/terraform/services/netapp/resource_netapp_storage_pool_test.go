@@ -810,58 +810,6 @@ resource "google_netapp_storage_pool" "test_pool" {
 }
 
 {{- if ne $.TargetVersionName "ga" }}
-func TestAccNetappStoragePool_ScaleTierStandard(t *testing.T) {
-	context := map[string]interface{}{
-		"network_name":  acctest.BootstrapSharedServiceNetworkingConnection(t, "gcnv-network-config-3", acctest.ServiceNetworkWithParentService("netapp.servicenetworking.goog")),
-		"random_suffix": acctest.RandString(t, 10),
-	}
-
-	acctest.VcrTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.AccTestPreCheck(t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderBetaFactories(t),
-		CheckDestroy:             testAccCheckNetappVolumeDestroyProducer(t),
-		ExternalProviders: map[string]resource.ExternalProvider{
-			"time": {},
-		},
-		Steps: []resource.TestStep{
-			{
-				Config: testAccNetappStoragePool_ScaleTierStandard(context),
-			},
-			{
-				ResourceName:            "google_netapp_storage_pool.test_pool",
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"location", "name", "labels", "terraform_labels"},
-			},
-		},
-	})
-}
-
-func testAccNetappStoragePool_ScaleTierStandard(context map[string]interface{}) string {
-	return acctest.Nprintf(`
-resource "google_netapp_storage_pool" "test_pool" {
-	provider = google-beta
-    name = "tf-test-pool%{random_suffix}"
-    location = "us-central1-a"
-    service_level = "FLEX"
-    type = "UNIFIED"
-    capacity_gib = "2048"
-    network = data.google_compute_network.default.id
-    description           = "this is a test description"
-    labels                = {
-        key = "test"
-        value = "pool"
-    }
-	scale_tier = "SCALE_TIER_STANDARD"
-}
-
-data "google_compute_network" "default" {
-	provider = google-beta
-    name = "%{network_name}"
-}
-`, context)
-}
-
 func TestAccNetappStoragePool_ScaleTierEnterprise(t *testing.T) {
 	context := map[string]interface{}{
 		"network_name":  acctest.BootstrapSharedServiceNetworkingConnection(t, "gcnv-network-config-3", acctest.ServiceNetworkWithParentService("netapp.servicenetworking.goog")),
