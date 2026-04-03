@@ -257,6 +257,19 @@ properties:
       - 'SCALE_TIER_ENTERPRISE'
     immutable: true
     min_version: beta
+    deprecation_message: '`scaleTier` is deprecated and will be removed in a future major release. Use `scaleType` instead.'
+    default_from_api: true
+  - name: 'scaleType'
+    type: Enum
+    description: |
+      The effective scale type of the storage pool. If `scale_type` is not
+      specified during creation, this defaults to `SCALE_TYPE_DEFAULT`.
+    enum_values:
+      - 'SCALE_TYPE_UNSPECIFIED'
+      - 'SCALE_TYPE_DEFAULT'
+      - 'SCALE_TYPE_SCALEOUT'
+    immutable: true
+    min_version: beta
     default_from_api: true
   - name: 'mode'
     type: Enum
